@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Spam Detection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        /* Custom styles for animations and enhanced UI - Refined for better aesthetics */
+        .fade-in {
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .scale-up {
+            animation: scaleUp 0.6s ease-out;
+        }
+
+        @keyframes scaleUp {
+            from {
+                transform: scale(0.9);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .hover-float {
+            transition: transform 0.3s ease;
+        }
+
+        .hover-float:hover {
+            transform: translateY(-6px);
+        }
+
+        .gradient-bg {
+            background: linear-gradient(to right, #6b7280, #374151);
+            /* Darker, more sophisticated gradient */
+        }
+
+        .glassmorphism {
+            background-color: rgba(255, 255, 255, 0.06);
+            /* Slightly more transparent */
+            backdrop-filter: blur(12px);
+            /* Slightly stronger blur */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            /* Even lighter, thinner border */
+            border-radius: 16px;
+            /* More rounded corners */
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+            /* Deeper shadow, more pronounced */
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .data-table th,
+        .data-table td {
+            border: 1px solid #4b5563;
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        .data-table th {
+            background-color: #4a5568;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 font-inter text-gray-100">
+    <header class="bg-gray-800 py-4 md:py-6 sticky top-0 z-10 shadow-md glassmorphism">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a href="#"
+                class="flex items-center text-xl font-semibold text-white hover:text-gray-200 transition duration-300">
+                <span class="material-icons mr-2">security</span>
+                <span class="font-bold">AI Spam Detection</span>
+            </a>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-6">
+                    <li><a href="#home" class="hover:text-blue-400 transition duration-300 text-gray-200">Home</a></li>
+                    <li><a href="#about" class="hover:text-blue-400 transition duration-300 text-gray-200">About</a></li>
+                    <li><a href="#benefits" class="hover:text-blue-400 transition duration-300 text-gray-200">Benefits</a></li>
+                    <li><a href="#technology"
+                            class="hover:text-blue-400 transition duration-300 text-gray-200">Technology</a></li>
+                    <li><a href="#analysis"
+                            class="hover:text-blue-400 transition duration-300 text-gray-200">Analysis</a></li>
+                    <li><a href="#team" class="hover:text-blue-400 transition duration-300 text-gray-200">Team</a></li>
+                    <li><a href="#contact"
+                            class="hover:text-blue-400 transition duration-300 text-gray-200">Contact</a></li>
+                </ul>
+            </nav>
+            <button id="hamburger-btn"
+                class="md:hidden text-gray-300 hover:text-white focus:outline-none focus:shadow-outline">
+                <span class="material-icons">menu</span>
+            </button>
+        </div>
+    </header>
+
+    <div id="mobile-menu" class="hidden fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-90 z-20">
+        <div class="bg-gray-800 w-80 h-full absolute right-0 p-6">
+            <div class="flex justify-end mb-4">
+                <button id="close-menu-btn"
+                    class="text-gray-300 hover:text-white focus:outline-none focus:shadow-outline">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            <nav class="block">
+                <ul class="space-y-4">
+                    <li><a href="#home" class="block text-lg text-gray-200 hover:text-blue-400 transition duration-300">Home</a>
+                    </li>
+                    <li><a href="#about" class="block text-lg text-gray-200 hover:text-blue-400 transition duration-300">About</a>
+                    </li>
+                    <li><a href="#benefits" class="block text-lg text-gray-200 hover:text-blue-400 transition duration-300">Benefits</a>
+                    </li>
+                    <li><a href="#technology"
+                            class="block text-lg text-gray-200 hover:text-blue-400 transition duration-300">Technology</a>
+                    </li>
+                    <li><a href="#analysis"
+                            class="block text-lg text-gray-200 hover:text-blue-400 transition duration-300">Analysis</a>
+                    </li>
+                    <li><a href="#team" class="block text-lg text-gray-200 hover:text-blue-400 transition duration-300">Team</a>
+                    </li>
+                    <li><a href="#contact"
+                            class="block text-lg text-gray-200 hover:text-blue-400 transition duration-300">Contact</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <main>
+        <section id="home"
+            class="container mx-auto px-4 py-16 md:py-24 flex flex-col md:flex-row items-center justify-center gap-8">
+            <div class="text-center md:text-left md:w-1/2 slide-in-left">
+                <h1
+                    class="text-4xl md:text-5xl font-bold text-white mb-4 md:mb-6 bg-gradient-to-r from-blue-400 to-purple-400 text-transparent bg-clip-text">
+                    Enhancing Email Security with AI
+                </h1>
+                <p class="text-lg text-gray-300 mb-8 md:mb-10">
+                    Advanced Spam Detection System using Machine Learning and Natural Language Processing for Efficient
+                    Communication.
+                </p>
+                <a href="#about"
+                    class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-full transition duration-300 transform hover:scale-105 shadow-lg hover-float">
+                    Learn More
+                </a>
+            </div>
+            <div class="md:w-1/2 scale-up">
+                <img src="email.jpg" alt="Email Security Illustration"
+                    class="rounded-xl shadow-2xl glassmorphism">
+            </div>
+        </section>
+
+        <section id="about" class="container mx-auto px-4 py-16 md:py-24">
+            <h2 class="text-3xl md:text-4xl font-semibold text-white text-center mb-8 md:mb-12 section-title fade-in">About
+                Us</h2>
+            <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+                <div class="slide-in-right">
+                    <h3 class="text-2xl font-semibold text-blue-400 mb-4">Project Overview</h3>
+                    <p class="text-gray-300 text-lg mb-6">
+                        The project focuses on developing an AI-driven spam detection system to enhance email security. It
+                        addresses the increasing challenges of modern phishing and spam, which traditional rule-based
+                        systems struggle to counter. This system utilizes machine learning and natural language processing
+                        to more accurately identify and filter out malicious emails. The system is designed to integrate with
+                        existing email infrastructure, providing a seamless and effective solution for businesses and
+                        individuals.
+                    </p>
+                    <h3 class="text-2xl font-semibold text-blue-400 mb-4">Key Features</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-300 text-lg">
+                        <li>BERT embeddings for context-based analysis, capturing nuanced meaning in email text.</li>
+                        <li>Continuous learning for real-time adaptation to new threats, ensuring the system remains
+                            effective against evolving spam techniques.</li>
+                        <li>High accuracy with reduced false positives, minimizing disruption to legitimate email
+                            communication.</li>
+                        <li>Detection of adversarial samples like Unicode homoglyphs, which are often used to bypass
+                            traditional filters.</li>
+                        <li>API integration for seamless deployment with existing email systems, allowing for easy
+                            adoption and minimal disruption.</li>
+                        <li>Admin dashboard for performance monitoring and sensitivity adjustments, providing
+                            administrators with control and insights.</li>
+                    </ul>
+                </div>
+                <div class="glassmorphism rounded-xl p-6 shadow-lg slide-in-left">
+                    <p class="text-gray-200 text-lg">
+                        This system provides a solution to address primary spam detection needs and delivers significant
+                        business and economic benefits, including enhanced accuracy, operational savings, and improved
+                        efficiency. By leveraging AI, the system can identify and block spam emails that traditional
+                        methods often miss, leading to a more secure and productive email experience.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="benefits" class="bg-gray-800 py-16 md:py-24">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-semibold text-white text-center mb-8 md:mb-12 section-title fade-in">
+                    Benefits</h2>
+                <div class="grid md:grid-cols-3 gap-8 md:gap-12">
+                    <div class="glassmorphism rounded-xl p-6 shadow-lg hover-float transition duration-300 scale-up">
+                        <h3 class="text-xl font-semibold text-green-400 mb-4 flex items-center">
+                            <span class="material-icons mr-2">savings</span> Cost Savings
+                        </h3>
+                        <p class="text-gray-200 text-lg">
+                            Reduces the need for manual spam identification and management, saving businesses approximately
+                            $15,000 annually. This savings is achieved through decreased labor costs associated with
+                            handling spam and reduced IT support needs.
+                        </p>
+                        <img src="cost saving.jpg" alt="Cost Savings Illustration" class="mt-4">
+                    </div>
+                    <div class="glassmorphism rounded-xl p-6 shadow-lg hover-float transition duration-300 scale-up">
+                        <h3 class="text-xl font-semibold text-blue-400 mb-4 flex items-center">
+                            <span class="material-icons mr-2">schedule</span> Productivity Gains
+                        </h3>
+                        <p class="text-gray-200 text-lg">
+                            Saves employees around 15 work hours per year, allowing them to focus on more valuable tasks.
+                            This translates to increased efficiency and a more productive workforce, as employees spend less
+                            time sorting through and deleting spam emails.
+                        </p>
+                        <img src="productivity.jpg" alt="Productivity Gains Illustration" class="mt-4">
+                    </div>
+                    <div class="glassmorphism rounded-xl p-6 shadow-lg hover-float transition duration-300 scale-up">
+                        <h3 class="text-xl font-semibold text-red-400 mb-4 flex items-center">
+                            <span class="material-icons mr-2">security</span> Enhanced Security
+                        </h3>
+                        <p class="text-gray-200 text-lg">
+                            Improves email security by reducing false positives and effectively detecting adversarial samples,
+                            thus minimizing the risk of security breaches. This enhanced security helps to protect
+                            sensitive information and maintain the integrity of email communications.
+                        </p>
+                        <img src="GetImage.ashx.jpg" alt="Enhanced Security Illustration" class="mt-4">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="technology" class="container mx-auto px-4 py-16 md:py-24">
+            <h2 class="text-3xl md:text-4xl font-semibold text-white text-center mb-8 md:mb-12 section-title fade-in">
+                Technology</h2>
+            <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+                <div class="slide-in-right">
+                    <h3 class="text-2xl font-semibold text-blue-400 mb-4">ML and NLP Models</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-300 text-lg">
+                        <li><strong>Naive Bayes:</strong> For fast, efficient probabilistic classification, particularly useful
+                            for initial filtering.</li>
+                        <li><strong>Support Vector Machines (SVM):</strong> For high-performance classification on complex
+                            datasets, providing a balance between accuracy and computational cost.</li>
+                        <li><strong>Long Short-Term Memory (LSTM) Networks:</strong> For advanced contextual analysis of
+                            email text, capturing long-range dependencies and nuanced language patterns.</li>
+                    </ul>
+                    <h3 class="text-2xl font-semibold text-blue-400 mb-4 mt-6">API Integration</h3>
+                    <p class="text-gray-300 text-lg mb-6">
+                        REST API enables seamless integration with existing email platforms like Outlook and Gmail, allowing
+                        for real-time spam detection without disrupting current workflows. The API provides a
+                        standardized interface for email systems to communicate with the spam detection engine.
+                    </p>
+                    <h3 class="text-2xl font-semibold text-blue-400 mb-4 mt-6">Admin Dashboard</h3>
+                    <p class="text-gray-300 text-lg">
+                        Provides administrators with a user-friendly interface to monitor system performance, view
+                        detection metrics, and adjust sensitivity parameters as needed. The dashboard offers tools for
+                        managing whitelists and blacklists, and for generating reports on spam activity.
+                    </p>
+                </div>
+                <div class="glassmorphism rounded-xl p-6 shadow-lg slide-in-left">
+                    <img src="nlp.jpg" alt="Technology Diagram" class="rounded-xl shadow-lg">
+                </div>
+            </div>
+        </section>
+
+        <section id="analysis" class="bg-gray-800 py-16 md:py-24">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-semibold text-white text-center mb-8 md:mb-12 section-title fade-in">
+                    Analysis</h2>
+                <div class="grid md:grid-cols-2 gap-8 md:gap-12">
+                    <div class="glassmorphism rounded-xl p-6 shadow-lg slide-in-right">
+                        <h3 class="text-2xl font-semibold text-green-400 mb-4">Benchmarking</h3>
+                        <p class="text-gray-200 text-lg mb-6">
+                            The proposed system demonstrates superior performance compared to traditional rule-based
+                            systems (SpamAssassin) and even other machine learning-based systems (Gmail). This is due to
+                            the advanced NLP techniques and continuous learning capabilities of the system.
+                        </p>
+                        <h4 class="text-lg font-semibold text-blue-400 mb-2">Key Metrics:</h4>
+                        <ul class="list-disc list-inside space-y-1 text-gray-300 text-lg">
+                            <li><strong>Accuracy:</strong> Over 95%</li>
+                            <li><strong>False Positive Rate:</strong> Less than 5%</li>
+                        </ul>
+                    </div>
+                    <div class="glassmorphism rounded-xl p-6 shadow-lg slide-in-left">
+                        <h3 class="text-2xl font-semibold text-blue-400 mb-4">Comparison</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-300 text-lg">
+                            <li><strong>Proposed System:</strong> Accuracy > 95%, False Positive Rate < 5%. This high level of
+                                performance is consistent across different types of spam, including phishing and malware
+                                distribution attempts.</li>
+                            <li><strong>SpamAssassin:</strong> Accuracy ~ 72%. Rule-based systems like SpamAssassin struggle
+                                with evolving spam techniques and often have difficulty with nuanced language.</li>
+                            <li><strong>Gmail:</strong> False Positive Rate ~ 8%. While Gmail employs machine learning, it may
+                                still occasionally misclassify legitimate emails as spam.</li>
+                        </ul>
+                        <h3 class="text-2xl font-semibold text-blue-400 mb-4 mt-6">Stress Testing</h3>
+                        <p class="text-gray-200 text-lg">
+                            The system efficiently handles high email volumes, processing over 1000 emails per second with
+                            less than 100ms latency. This demonstrates the system's scalability and ability to perform
+                            under heavy load.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="team" class="container mx-auto px-4 py-16 md:py-24">
+            <h2 class="text-3xl md:text-4xl font-semibold text-white text-center mb-8 md:mb-12 section-title fade-in">Team
+            </h2>
+            <div class="grid md:grid-cols-3 gap-8 md:gap-12">
+                <div class="glassmorphism rounded-xl p-6 shadow-lg hover-float transition duration-300 scale-up">
+                    <h3 class="text-xl font-semibold text-purple-400 mb-4 flex items-center">
+                        <span class="material-icons mr-2">engineering</span> ML Engineer
+                    </h3>
+                    <p class="text-gray-200 text-lg">
+                        Optimizes machine learning algorithms, improves model accuracy, and controls false positive rates.
+                        The ML Engineer is responsible for the core performance of the spam detection system.
+                    </p>
+                </div>
+                <div class="glassmorphism rounded-xl p-6 shadow-lg hover-float transition duration-300 scale-up">
+                    <h3 class="text-xl font-semibold text-pink-400 mb-4 flex items-center">
+                        <span class="material-icons mr-2">psychology</span> NLP Specialist
+                    </h3>
+                    <p class="text-gray-200 text-lg">
+                        Manages text preprocessing, including tokenization, stemming, and stop word elimination, to ensure
+                        high-quality data for the models. The NLP Specialist is crucial for the system's ability to
+                        understand and interpret email content.
+                    </p>
+                </div>
+                <div class="glassmorphism rounded-xl p-6 shadow-lg hover-float transition duration-300 scale-up">
+                    <h3 class="text-xl font-semibold text-yellow-400 mb-4 flex items-center">
+                        <span class="material-icons mr-2">developer_mode</span> Software Developer
+                    </h3>
+                    <p class="text-gray-200 text-lg">
+                        Develops the API and user interface dashboard, enabling seamless integration and user interaction
+                        with the spam detection system. The Software Developer ensures that the system is accessible
+                        and user-friendly.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="bg-gray-800 py-16 md:py-24">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-semibold text-white text-center mb-8 md:mb-12 section-title fade-in">
+                    Contact Us</h2>
+                <div class="glassmorphism rounded-xl p-8 md:p-12 shadow-lg max-w-lg mx-auto">
+                    <p class="text-gray-200 text-lg mb-6 text-center">
+                        For inquiries or more information, please feel free to contact us. We are committed to providing
+                        timely and helpful responses.
+                    </p>
+                    <div class="text-center">
+                        <a href="mailto:harsha.vuske@gmail.com"
+                             class="inline-flex items-center bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-3 px-6 rounded-full transition duration-300 transform hover:scale-105 shadow-md hover-float">
+                            <span class="material-icons mr-2">email</span>
+                            Contact via Email
+                        </a>
+                       
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-900 py-6 md:py-8">
+        <div class="container mx-auto px-4 text-center text-gray-400 text-sm">
+            &copy; 2025 AI Spam Detection. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle functionality
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        const navLinks = document.querySelectorAll('header nav a');
+        const sections = document.querySelectorAll('section');
+
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        hamburgerBtn.addEventListener('click', toggleMobileMenu);
+        closeMenuBtn.addEventListener('click', toggleMobileMenu);
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', toggleMobileMenu);
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!mobileMenu.classList.contains('hidden') && !mobileMenu.contains(event.target) && event.target !== hamburgerBtn) {
+                toggleMobileMenu();
+            }
+        });
+
+        // Smooth scrolling for all anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        function updateActiveNavLink() {
+            let currentSectionId = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= sectionTop - 100 && window.scrollY < sectionTop + sectionHeight - 100) {
+                    currentSectionId = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === currentSectionId) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveNavLink);
+
+
+       
